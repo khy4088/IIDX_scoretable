@@ -7,7 +7,13 @@
 # WARNING! All changes made in this file will be lost!
 
 import sys
+import csv
+import pandas as pd
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtCore import pyqtSlot, Qt
+from PyQt5.QtWidgets import *
+from PyQt5.QtGui import *
+import random
 
 
 class Ui_MainWindow(object):
@@ -23,7 +29,7 @@ class Ui_MainWindow(object):
         self.fileoutButton = QtWidgets.QPushButton(self.centralwidget)
         self.getfileButton = QtWidgets.QToolButton(self.centralwidget)
         self.level12Button = QtWidgets.QCheckBox(self.centralwidget)
-        self.tableView = QtWidgets.QTableView(self.centralwidget)
+        self.tableView = QtWidgets.QTableWidget(self.centralwidget)
         self.mainwindow = MainWindow
 
     def setupUi(self, MainWindow):
@@ -84,11 +90,31 @@ class Ui_MainWindow(object):
         self.introductionButton.setText(_translate("MainWindow", "설명"))
         self.spButton.setText(_translate("MainWindow", "SP Data"))
 
-    def getfileButtonClicked(self):
-        fname = QtWidgets.QFileDialog.getOpenFileName(self.mainwindow, 'Open file', "", 'CSV Files(*.csv)')
+    def __make_table(self, c_cnt, r_cnt, h_list, reader):
+        self.tableView.setSelectionMode(QAbstractItemView.SingleSelection)
+        self.tableView.setColumnCount(c_cnt)
+        self.tableView.setRowCount(r_cnt)
+        self.tableView.setHorizontalHeaderLabels(h_list)
+        self.tableView.horizontalHeaderItem(0).setTextAlignment(Qt.AlignRight)
+        self.tableView.setItem(0, 0, QTableWidgetItem(""))
+        self.tableView.setItem(0, 1, QTableWidgetItem(""))
+        self.tableView.setItem(1, 0, QTableWidgetItem(""))
+        self.tableView.setItem(1, 1, QTableWidgetItem(""))
+        self.tableView.setItem(2, 0, QTableWidgetItem(""))
+        # for이나 while으로 해결해야할듯.
 
+        self.tableView.setEditTriggers(QAbstractItemView.NoEditTriggers)
+
+    def getfileButtonClicked(self):
+        row_counter = 1
+        fname = QtWidgets.QFileDialog.getOpenFileName(self.mainwindow, 'Open file', "", 'CSV Files(*.csv)')
         self.statusbar.showMessage(fname[0] + ' is loaded')
-        print(fname)
+        file_csv = open(fname[0], 'r', encoding='utf-8')
+        rdr = csv.reader(file_csv)
+        header = next(rdr)
+        for row in rdr:
+            row_counter += 1
+        self.__make_table(len(header), row_counter, header, rdr)
 
 
 if __name__ == "__main__":
