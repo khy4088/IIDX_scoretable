@@ -1,107 +1,100 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'sct.ui'
+# Form implementation generated from reading ui file 'newsct.ui'
 #
 # Created by: PyQt5 UI code generator 5.13.0
 #
 # WARNING! All changes made in this file will be lost!
 
-from PyQt5 import QtCore, QtWidgets
-from PyQt5.QtWidgets import QApplication, QWidget, QMainWindow
-from PyQt5.QtGui import QIcon
+import sys
+from PyQt5 import QtCore, QtGui, QtWidgets
 
 
-class Init_UI(object):
-
+class Ui_MainWindow(object):
     def __init__(self):
-        self.tableView = QtWidgets.QTableView(Dialog)
-        self.spButton = QtWidgets.QCheckBox(Dialog)
-        self.dpButton = QtWidgets.QCheckBox(Dialog)
-        self.level11Button = QtWidgets.QCheckBox(Dialog)
-        self.level12Button = QtWidgets.QCheckBox(Dialog)
-        self.getfileButton = QtWidgets.QToolButton(Dialog)
-        self.fileoutButton = QtWidgets.QPushButton(Dialog)
-        self.introductionButton = QtWidgets.QPushButton(Dialog)
-        self.exitButton = QtWidgets.QPushButton(Dialog)
-        self.filenamelabel = QtWidgets.QLabel(Dialog)
-        self.titlelabel = QtWidgets.QLabel(Dialog)
-        self.dialog = Dialog
-        self.setupUi(Dialog)
+        self.centralwidget = QtWidgets.QWidget(MainWindow)
+        self.statusbar = QtWidgets.QStatusBar(MainWindow)
+        self.spButton = QtWidgets.QCheckBox(self.centralwidget)
+        self.introductionButton = QtWidgets.QPushButton(self.centralwidget)
+        self.exitButton = QtWidgets.QPushButton(self.centralwidget)
+        self.dpButton = QtWidgets.QCheckBox(self.centralwidget)
+        self.titlelabel = QtWidgets.QLabel(self.centralwidget)
+        self.level11Button = QtWidgets.QCheckBox(self.centralwidget)
+        self.fileoutButton = QtWidgets.QPushButton(self.centralwidget)
+        self.getfileButton = QtWidgets.QToolButton(self.centralwidget)
+        self.level12Button = QtWidgets.QCheckBox(self.centralwidget)
+        self.tableView = QtWidgets.QTableView(self.centralwidget)
+        self.mainwindow = MainWindow
 
-    def setupUi(self, Dialog):
-        Dialog.setObjectName("Dialog")
-        Dialog.resize(1024, 768)
-        Dialog.setMinimumSize(QtCore.QSize(1024, 768))
-        Dialog.setMaximumSize(QtCore.QSize(1024, 768))
-        self.titlelabel.setGeometry(QtCore.QRect(9, 9, 195, 16))
-        self.titlelabel.setFrameShape(QtWidgets.QFrame.NoFrame)
-        self.titlelabel.setObjectName("titlelabel")  # 타이틀
-        self.filenamelabel.setGeometry(QtCore.QRect(9, 300, 195, 16))
-        self.filenamelabel.setFrameShape(QtWidgets.QFrame.NoFrame)
-        self.filenamelabel.setObjectName("filenamelabel")  # 파일 이름
-        self.tableView.setGeometry(QtCore.QRect(100, 30, 911, 721))
-        self.tableView.setObjectName("tableView")  # 테이블
-        self.spButton.setGeometry(QtCore.QRect(10, 34, 68, 16))
-        self.spButton.setMaximumSize(QtCore.QSize(90, 16))
-        self.spButton.setObjectName("spButton")  # SP select
-        self.dpButton.setGeometry(QtCore.QRect(10, 56, 68, 16))
-        self.dpButton.setMaximumSize(QtCore.QSize(90, 16))
-        self.dpButton.setObjectName("dpButton")  # DP select
-        self.level11Button.setGeometry(QtCore.QRect(10, 78, 69, 16))
-        self.level11Button.setMaximumSize(QtCore.QSize(90, 16))
-        self.level11Button.setObjectName("level11Button")  # level 11 select
-        self.level12Button.setGeometry(QtCore.QRect(10, 100, 69, 16))
+    def setupUi(self, MainWindow):
+        MainWindow.setObjectName("MainWindow")
+        MainWindow.resize(1024, 796)
+        self.centralwidget.setObjectName("centralwidget")
+        self.tableView.setGeometry(QtCore.QRect(100, 26, 911, 721))
+        self.tableView.setObjectName("tableView")
+        self.level12Button.setGeometry(QtCore.QRect(10, 96, 69, 16))
         self.level12Button.setMaximumSize(QtCore.QSize(90, 16))
-        self.level12Button.setObjectName("level12Button")  # level 12 select
+        self.level12Button.setObjectName("level12Button")
         self.getfileButton.setEnabled(True)
-        self.getfileButton.setGeometry(QtCore.QRect(10, 190, 81, 21))
-        self.getfileButton.setObjectName("getfileButton")  # get file button
-        self.getfileButton.clicked.connect(self.getfileButtonClicked)
+        self.getfileButton.setGeometry(QtCore.QRect(10, 186, 81, 21))
+        self.getfileButton.setObjectName("getfileButton")
         self.fileoutButton.setEnabled(True)
-        self.fileoutButton.setGeometry(QtCore.QRect(10, 160, 81, 23))
+        self.fileoutButton.setGeometry(QtCore.QRect(10, 156, 81, 23))
         self.fileoutButton.setLayoutDirection(QtCore.Qt.LeftToRight)
         self.fileoutButton.setAutoFillBackground(False)
         self.fileoutButton.setObjectName("fileoutButton")
+        self.level11Button.setGeometry(QtCore.QRect(10, 74, 69, 16))
+        self.level11Button.setMaximumSize(QtCore.QSize(90, 16))
+        self.level11Button.setObjectName("level11Button")
+        self.titlelabel.setGeometry(QtCore.QRect(9, 5, 195, 16))
+        self.titlelabel.setFrameShape(QtWidgets.QFrame.NoFrame)
+        self.titlelabel.setObjectName("titlelabel")
+        self.dpButton.setGeometry(QtCore.QRect(10, 52, 68, 16))
+        self.dpButton.setMaximumSize(QtCore.QSize(90, 16))
+        self.dpButton.setObjectName("dpButton")
+        self.exitButton.setEnabled(True)
+        self.exitButton.setGeometry(QtCore.QRect(10, 216, 81, 23))
+        self.exitButton.setObjectName("exitButton")
         self.introductionButton.setEnabled(True)
-        self.introductionButton.setGeometry(QtCore.QRect(10, 130, 81, 23))
+        self.introductionButton.setGeometry(QtCore.QRect(10, 126, 81, 23))
         self.introductionButton.setLayoutDirection(QtCore.Qt.LeftToRight)
         self.introductionButton.setAutoFillBackground(False)
-        self.introductionButton.setObjectName("introductionButton")
-        self.exitButton.setEnabled(True)
-        self.exitButton.setGeometry(QtCore.QRect(10, 220, 81, 23))
-        self.exitButton.setObjectName("exitButton")
-        self.retranslateUi(Dialog)
-        QtCore.QMetaObject.connectSlotsByName(Dialog)
-        Dialog.setTabOrder(self.dpButton, self.spButton)
-        Dialog.setTabOrder(self.spButton, self.level11Button)
-        Dialog.setTabOrder(self.level11Button, self.level12Button)
-        Dialog.setTabOrder(self.level12Button, self.tableView)
+        self.introductionButton.setObjectName("introdctionButton")
+        self.spButton.setGeometry(QtCore.QRect(10, 30, 68, 16))
+        self.spButton.setMaximumSize(QtCore.QSize(90, 16))
+        self.spButton.setObjectName("spButton")
+        MainWindow.setCentralWidget(self.centralwidget)
+        self.statusbar.setObjectName("statusbar")
+        self.getfileButton.clicked.connect(self.getfileButtonClicked)
+        MainWindow.setStatusBar(self.statusbar)
+        self.statusbar.showMessage('Ready')
+        self.retranslateUi(MainWindow)
+        QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
-    def retranslateUi(self, Dialog):
+    def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
-        self.titlelabel.setText(_translate("Dialog", "Beatmania IIDX Score Table Tools"))
-        self.filenamelabel.setText(_translate("Dialog", "File Name"))
-        self.spButton.setText(_translate("Dialog", "SP Data"))
-        self.dpButton.setText(_translate("Dialog", "DP Data"))
-        self.level11Button.setText(_translate("Dialog", "Level 11"))
-        self.level12Button.setText(_translate("Dialog", "Level 12"))
-        self.getfileButton.setText(_translate("Dialog", "Open"))
-        self.fileoutButton.setText(_translate("Dialog", "Make Image"))
-        self.introductionButton.setText(_translate("Dialog", "설명"))
-        self.exitButton.setText(_translate("Dialog", "Exit"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        self.level12Button.setText(_translate("MainWindow", "Level 12"))
+        self.getfileButton.setText(_translate("MainWindow", "Open"))
+        self.fileoutButton.setText(_translate("MainWindow", "Make Image"))
+        self.level11Button.setText(_translate("MainWindow", "Level 11"))
+        self.titlelabel.setText(_translate("MainWindow", "Beatmania IIDX Score Table Tools"))
+        self.dpButton.setText(_translate("MainWindow", "DP Data"))
+        self.exitButton.setText(_translate("MainWindow", "Exit"))
+        self.introductionButton.setText(_translate("MainWindow", "설명"))
+        self.spButton.setText(_translate("MainWindow", "SP Data"))
 
     def getfileButtonClicked(self):
-        fname = QtWidgets.QFileDialog.getOpenFileName(self.dialog)
-        self.filenamelabel.setText(fname[0])
+        fname = QtWidgets.QFileDialog.getOpenFileName(self.mainwindow, 'Open file', "", 'CSV Files(*.csv)')
+
+        self.statusbar.showMessage(fname[0] + ' is loaded')
+        print(fname)
 
 
 if __name__ == "__main__":
-    import sys
-
     app = QtWidgets.QApplication(sys.argv)
-    Dialog = QtWidgets.QDialog()
-    ui = Init_UI()
-    ui.setupUi(Dialog)
-    Dialog.show()
+    MainWindow = QtWidgets.QMainWindow()
+    ui = Ui_MainWindow()
+    ui.setupUi(MainWindow)
+    MainWindow.show()
     sys.exit(app.exec_())
