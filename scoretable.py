@@ -8,16 +8,15 @@
 
 import sys
 import csv
-import pandas as pd
-from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtCore import pyqtSlot, Qt
+from PyQt5 import QtCore, QtWidgets
+from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
-import random
 
 
-class Ui_MainWindow(object):
+class Ui_MainWindow(QMainWindow):
     def __init__(self):
+        super().__init__()
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.spButton = QtWidgets.QCheckBox(self.centralwidget)
@@ -31,6 +30,7 @@ class Ui_MainWindow(object):
         self.level12Button = QtWidgets.QCheckBox(self.centralwidget)
         self.tableView = QtWidgets.QTableWidget(self.centralwidget)
         self.mainwindow = MainWindow
+        self.__getlevel12Data()
 
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -71,15 +71,16 @@ class Ui_MainWindow(object):
         self.spButton.setObjectName("spButton")
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar.setObjectName("statusbar")
-        self.getfileButton.clicked.connect(self.getfileButtonClicked)
+
         MainWindow.setStatusBar(self.statusbar)
         self.statusbar.showMessage('Ready')
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
+        self.getfileButton.clicked.connect(self.getfileButtonClicked)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Beatmania IIDX Tool"))
         self.level12Button.setText(_translate("MainWindow", "Level 12"))
         self.getfileButton.setText(_translate("MainWindow", "Open"))
         self.fileoutButton.setText(_translate("MainWindow", "Make Image"))
@@ -90,32 +91,50 @@ class Ui_MainWindow(object):
         self.introductionButton.setText(_translate("MainWindow", "설명"))
         self.spButton.setText(_translate("MainWindow", "SP Data"))
 
+    def getfileButtonClicked(self):
+        row_counter = 1
+        fname = QtWidgets.QFileDialog.getOpenFileName(self.mainwindow, 'Open file', "./", 'CSV Files(*.csv)')
+        if fname[0]:
+            self.statusbar.showMessage(fname[0] + ' is loaded successfully')
+            file_csv = open(fname[0], 'r', encoding='utf-8')
+            rdr = csv.reader(file_csv)
+            header = next(rdr)
+            for row in rdr:
+                row_counter += 1
+            file_csv = open(fname[0], 'r', encoding='utf-8')
+            rdr = csv.reader(file_csv)
+            self.__make_table(len(header), row_counter, header, rdr)
+        else:
+            QMessageBox.about(MainWindow, "Warning", "파일을 선택하세요.")
+
     def __make_table(self, c_cnt, r_cnt, h_list, reader):
         self.tableView.setSelectionMode(QAbstractItemView.SingleSelection)
         self.tableView.setColumnCount(c_cnt)
-        self.tableView.setRowCount(r_cnt)
+        self.tableView.setRowCount(r_cnt - 1)
         self.tableView.setHorizontalHeaderLabels(h_list)
         self.tableView.horizontalHeaderItem(0).setTextAlignment(Qt.AlignRight)
-        self.tableView.setItem(0, 0, QTableWidgetItem(""))
-        self.tableView.setItem(0, 1, QTableWidgetItem(""))
-        self.tableView.setItem(1, 0, QTableWidgetItem(""))
-        self.tableView.setItem(1, 1, QTableWidgetItem(""))
-        self.tableView.setItem(2, 0, QTableWidgetItem(""))
-        # for이나 while으로 해결해야할듯.
-
+        k = -1
+        for row in reader:
+            i = range(0, len(row))
+            j = 0
+            for j in i:
+                self.tableView.setItem(k, j, QTableWidgetItem(row[j]))
+                j = j + 1
+            k += 1
         self.tableView.setEditTriggers(QAbstractItemView.NoEditTriggers)
 
-    def getfileButtonClicked(self):
-        row_counter = 1
-        fname = QtWidgets.QFileDialog.getOpenFileName(self.mainwindow, 'Open file', "", 'CSV Files(*.csv)')
-        self.statusbar.showMessage(fname[0] + ' is loaded')
-        file_csv = open(fname[0], 'r', encoding='utf-8')
-        rdr = csv.reader(file_csv)
-        header = next(rdr)
-        for row in rdr:
-            row_counter += 1
-        self.__make_table(len(header), row_counter, header, rdr)
-
+    def __getlevel12Data(self):
+        file_csv = open("./sp12.csv", 'r', encoding='utf-8')
+        read_csv = csv.reader(file_csv)
+        print(read_csv)
+        print(type(read_csv))
+        csv_list = []
+        for row in read_csv:
+            csv_list.append(row)
+            
+        del(csv_list[0])
+        print(csv_list)
+        return csv_list
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
